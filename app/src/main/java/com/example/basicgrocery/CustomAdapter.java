@@ -1,6 +1,7 @@
 package com.example.basicgrocery;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,8 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+
+
 
 public class CustomAdapter extends BaseAdapter implements ListAdapter {
     private ArrayList<String> list = new ArrayList<String>();
@@ -54,6 +57,23 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
         //Handle buttons and add onClickListeners
         Button deleteBtn = (Button)view.findViewById(R.id.listitemDeleteButton);
         Button addBtn = (Button)view.findViewById(R.id.listitemAddButton);
+
+        final String result = listItemText.getText().toString();
+
+        listItemText.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                //do something
+                //list.remove(position); //or some other task
+                //notifyDataSetChanged();
+                //listItemText.setText("TEST");
+
+                Intent myIntent = new Intent(v.getContext(), OldListActivity.class);
+                myIntent.putExtra("fileName",result);
+                v.getContext().startActivity(myIntent);
+            }
+        });
+
 
         deleteBtn.setOnClickListener(new View.OnClickListener(){
             @Override

@@ -9,7 +9,11 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ListView mainListView ;
     private ArrayAdapter<String> listAdapter ;
-    private CustomAdapter myCustomeAdapter;
+    private CustomAdapter myCustomAdapter;
 @Override
 protected void onResume(){
     super.onResume();
@@ -26,28 +30,10 @@ protected void onResume(){
 
     fileList = new ArrayList(Arrays.asList(getApplicationContext().fileList()));
 
-
-    // Create and populate a List of planet names.
-    //String[] planets = new String[] { "Mercury", "Venus", "Earth", "Mars",
-    //          "Jupiter", "Saturn", "Uranus", "Neptune"};
-    // ArrayList<String> planetList = new ArrayList<String>();
-    //  planetList.addAll( Arrays.asList(planets) );
-
-    // Create ArrayAdapter using the planet list.
     listAdapter = new ArrayAdapter<String>(this, R.layout.simplerow, fileList );
 
-
-    // Add more planets. If you passed a String[] instead of a List<String>
-    // into the ArrayAdapter constructor, you must not add more items.
-    // Otherwise an exception will occur.
-    //listAdapter.add( "Ceres" );
-    //listAdapter.add( "Pluto" );
-    //listAdapter.add( "Haumea" );
-    //listAdapter.add( "Makemake" );
-    //listAdapter.add( "Eris" );
-
-    // Set the ArrayAdapter as the ListView's adapter.
-    mainListView.setAdapter( listAdapter );
+    mainListView.setAdapter( myCustomAdapter );
+    //mainListView.setAdapter( listAdapter );
 }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +73,7 @@ protected void onResume(){
 
         // Create ArrayAdapter using the planet list.
         //listAdapter = new ArrayAdapter<String>(this, R.layout.simplerow, fileList );
-        myCustomeAdapter = new CustomAdapter( fileList , this);
+        myCustomAdapter = new CustomAdapter( fileList , this);
 
 
         // Add more planets. If you passed a String[] instead of a List<String>
@@ -100,7 +86,7 @@ protected void onResume(){
         //listAdapter.add( "Eris" );
 
         // Set the ArrayAdapter as the ListView's adapter.
-        mainListView.setAdapter( myCustomeAdapter );
+        mainListView.setAdapter( myCustomAdapter );
         //mainListView.setAdapter( listAdapter );
         //addlistItem("Test Item23435");
 
@@ -119,6 +105,8 @@ protected void onResume(){
                 startActivity(myIntent);
             }
         });
+
+
     }
 
     private void addlistItem(String item) {
