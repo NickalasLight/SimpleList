@@ -31,8 +31,10 @@ protected void onResume(){
 
     fileList = new ArrayList(Arrays.asList(getApplicationContext().fileList()));
 
-    listAdapter = new ArrayAdapter<String>(this, R.layout.simplerow, fileList );
-
+    //listAdapter = new ArrayAdapter<String>(this, R.layout.simplerow, fileList );
+    myCustomAdapter = null;
+    myCustomAdapter = new CustomAdapter(fileList, getApplicationContext());
+    myCustomAdapter.notifyDataSetChanged();
     mainListView.setAdapter( myCustomAdapter );
     //mainListView.setAdapter( listAdapter );
 }
