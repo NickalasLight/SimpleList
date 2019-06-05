@@ -80,6 +80,8 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
             @Override
             public void onClick(View v) {
                 //do something
+                String fileName = list.get(position).toString();
+                FileManager.deleteFile(v.getContext(),fileName);
                 list.remove(position); //or some other task
                 notifyDataSetChanged();
             }

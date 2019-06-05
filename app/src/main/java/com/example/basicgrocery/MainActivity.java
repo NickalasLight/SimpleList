@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ListView mainListView ;
     private CustomAdapter myCustomAdapter;
-    
+
 @Override
 protected void onResume(){
     super.onResume();
