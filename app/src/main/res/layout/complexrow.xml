@@ -11,7 +11,9 @@
         android:layout_centerVertical="true"
         android:paddingLeft="8dp"
         android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:focusableInTouchMode="true"
+        />
 
     <ImageButton
         android:id="@+id/listitemDeleteButton"

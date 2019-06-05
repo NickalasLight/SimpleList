@@ -69,7 +69,7 @@ protected void onResume(){
 
         mainListView.setAdapter( myCustomAdapter );
 
-        mainListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*mainListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
@@ -79,6 +79,7 @@ protected void onResume(){
                 startActivity(myIntent);
             }
         });
+        */
 
 
     }

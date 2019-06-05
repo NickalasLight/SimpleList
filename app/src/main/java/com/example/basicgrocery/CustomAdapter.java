@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -68,10 +70,15 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
                 //list.remove(position); //or some other task
                 //notifyDataSetChanged();
                 //listItemText.setText("TEST");
-
-                Intent myIntent = new Intent(v.getContext(), OldListActivity.class);
-                myIntent.putExtra("fileName",result);
-                v.getContext().startActivity(myIntent);
+                try {
+                    Context myContext = v.getContext();
+                    Intent myIntent = new Intent(v.getContext(), OldListActivity.class);
+                    myIntent.putExtra("fileName", result);
+                    myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); //throws exception if this line is removed
+                    myContext.startActivity(myIntent);
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -90,7 +97,32 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
             @Override
             public void onClick(View v) {
                 //do something
-                notifyDataSetChanged();
+                try {
+                    Context context = v.getContext();
+
+                    TextView listItemText = (TextView) v.findViewById(R.id.listitemTextView);
+
+                    TextView textView = null;
+                    ViewGroup row = (ViewGroup) v.getParent();
+                    for (int itemPos = 0; itemPos < row.getChildCount(); itemPos++) {
+                        View view = row.getChildAt(itemPos);
+                        if (view instanceof TextView) {
+                            textView = (TextView) view; //Found it!
+                            break;
+                        }
+                    }
+
+                    textView.setFocusable(true);
+                    textView.requestFocus();
+
+                    String debugString = textView.getText().toString();
+
+                    InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.showSoftInput(textView, InputMethodManager.SHOW_IMPLICIT);
+                    notifyDataSetChanged();
+                }catch(Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
 
