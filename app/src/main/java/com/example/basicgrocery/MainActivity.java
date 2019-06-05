@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -45,7 +46,7 @@ protected void onResume(){
     }
 
    private void configureNewListButton(){
-        Button newListButton = (Button) findViewById(R.id.newlistBtn);
+        ImageButton newListButton = (ImageButton) findViewById(R.id.newlistBtn);
 
        newListButton.setOnClickListener(new View.OnClickListener(){
            @Override
