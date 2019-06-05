@@ -12,4 +12,14 @@ public class FileManager {
         file.delete();
 
     }
+
+    static void renameFile(Context context, String oldFileName, String newFileName ){
+
+        //TODO: ensure cant rename to existing file
+        File oldFile = new File(context.getFilesDir(), oldFileName);
+        File newFile = new File(context.getFilesDir(), newFileName);
+        oldFile.renameTo(newFile);
+        //file.delete();
+
+    }
 }
