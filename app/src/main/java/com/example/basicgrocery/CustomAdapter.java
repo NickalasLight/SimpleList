@@ -6,11 +6,13 @@ import android.content.Intent;
 import android.text.Editable;
 import android.text.method.KeyListener;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -87,13 +89,13 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
                 //notifyDataSetChanged();
                 //listItemText.setText("TEST");
                 try {
-                    /*
+
                     Context myContext = v.getContext();
                     Intent myIntent = new Intent(v.getContext(), OldListActivity.class);
                     myIntent.putExtra("fileName", result);
                     myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); //throws exception if this line is removed
                     myContext.startActivity(myIntent);
-                    */
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -115,9 +117,41 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
                     listItemText.setCursorVisible(false);
                     getViewFlag = true;
 
+
                 }
             }
         });
+
+        listItemText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+
+                if(actionId == EditorInfo.IME_ACTION_DONE) {
+                    Log.i("DONE:","Done pressed in listview edit text");
+                    String oldFileName = list.get(position).toString();
+                    String newFileName = listItemText.getText().toString();
+                    FileManager.renameFile(context,oldFileName,newFileName);
+                    list.set(position,newFileName);
+                    listItemText.clearFocus();
+                }
+
+
+                return false;
+            }
+        });
+            listItemText.setOnKeyListener(new View.OnKeyListener() {
+                @Override
+                public boolean onKey(View v, int keyCode, KeyEvent event) {
+
+                    if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)){
+                        Log.i("ENTER:","Enter pressed in edittext");
+                        String oldFileName = list.get(position).toString();
+                        String newFileName = listItemText.getText().toString();
+                        FileManager.renameFile(context,oldFileName,newFileName);
+                    }
+                    return false;
+                }
+            });
 
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,6 +179,7 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
                     //TextView listItemText = (TextView) v.findViewById(R.id.listitemTextView);
 
                     myEditText.setFocusableInTouchMode(true);
+                    myEditText.setImeOptions(EditorInfo.IME_ACTION_DONE);
                     //myEditText.setKeyListener(orgKeyListener);
                     myEditText.setSelectAllOnFocus(true);
                     myEditText.requestFocus();
@@ -157,6 +192,8 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
                     // myEditText.setVisibility(View.INVISIBLE);
                     InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
                     inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+
+
                     getViewFlag = false;
                     // myEditText.requestFocus();
                     //myEditText.selectAll();
@@ -172,6 +209,8 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
                 }
             }
         });
+
+
     }
         return view;
     }
