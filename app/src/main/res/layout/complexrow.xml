@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <TextView
-        android:id="@+id/listitemTextView"
+    <EditText
+        android:id="@+id/listitemEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -12,7 +12,12 @@
         android:paddingLeft="8dp"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:focusableInTouchMode="true"
+        android:background="@android:color/transparent"
+
+
+
+
+
         />
 
     <ImageButton
