@@ -77,9 +77,11 @@ public String getIsChecked(int position){
             final EditText listItemText = (EditText) view.findViewById(R.id.listitemEditText);
             listItemText.setText(list.get(position));
             listItemText.setCursorVisible(false);
+            
+            if(isCheckedDict.get(position) != null) {
             if(isCheckedDict.get(position).toString().equals("true")){
                 listItemText.setPaintFlags(listItemText.getPaintFlags() ^ Paint.STRIKE_THRU_TEXT_FLAG);
-            }
+            }}
 
 
             //final KeyListener orgKeyListener = listItemText.getKeyListener();
