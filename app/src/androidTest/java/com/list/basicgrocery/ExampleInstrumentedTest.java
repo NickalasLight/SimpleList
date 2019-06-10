@@ -1,4 +1,4 @@
-package com.example.basicgrocery;
+package com.list.basicgrocery;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.example.basicgrocery", appContext.getPackageName());
+        assertEquals("com.list.basicgrocery", appContext.getPackageName());
     }
 }

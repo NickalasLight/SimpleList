@@ -1,4 +1,4 @@
-package com.example.basicgrocery;
+package com.list.basicgrocery;
 
 import android.content.Context;
 

@@ -1,4 +1,4 @@
-package com.example.basicgrocery;
+package com.list.basicgrocery;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,25 +10,80 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 
-public class NewListActivity extends AppCompatActivity {
+public class OldListActivity extends AppCompatActivity {
 
+    private String fileName;
     private ListView mainListView ;
     private ArrayAdapter<String> listAdapter ;
+    private ArrayList<String> dataArray = new ArrayList<String>();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.newlistview);
+        setContentView(R.layout.oldlistview);
+        fileName = getIntent().getStringExtra("fileName");
 
         configureFinishButton();
-        configureListView();
         configureAddItemButton();
+        //getIntent().getExtras();
+        configureListNameText();
+        readFromFiletoArrayList();
+        configureListView();
+
     }
+    private void configureListNameText(){
+        EditText myEditText = (EditText) findViewById(R.id.oldlistNameText);
+        myEditText.setText(fileName);
+    }
+
+    private void readFromFiletoArrayList(){
+        Context context = getApplicationContext();
+        File myDir = OldListActivity.this.getFilesDir();
+        try {
+            String filePath = myDir.getPath()+"/"+fileName;
+            String fileString = getStringFromFile(filePath);
+            while(fileString.indexOf(";") != -1) {
+                dataArray.add(fileString.substring(0, fileString.indexOf(";")));
+                fileString = fileString.substring(fileString.indexOf(";")+1,fileString.length());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static String convertStreamToString(InputStream is) throws Exception {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        StringBuilder sb = new StringBuilder();
+        String line = null;
+        while ((line = reader.readLine()) != null) {
+            sb.append(line).append("\n");
+        }
+        reader.close();
+        return sb.toString();
+    }
+
+    public static String getStringFromFile (String filePath) throws Exception {
+        File fl = new File(filePath);
+        FileInputStream fin = new FileInputStream(fl);
+        String ret = convertStreamToString(fin);
+        //Make sure you close all streams.
+        fin.close();
+        return ret;
+    }
+
+
+
 
     private void writeToFile(Context context, String listName) {
         try {
@@ -44,18 +99,19 @@ public class NewListActivity extends AppCompatActivity {
             outputStreamWriter.close();
         }
         catch (IOException e) {
-           // Log.e("Exception", "File write failed: " + e.toString());
+            // Log.e("Exception", "File write failed: " + e.toString());
         }
     }
 
-    private void saveNewList() {
+    private void saveOldList() {
         //set textbox somewhere to have a default name, check so it doesn't conflict with oter lists
         //text is used to set list name. Able to be changed by user.
-        EditText listName = (EditText) findViewById(R.id.newlistNameText); //grab text of this to set filename
+        EditText listName = (EditText) findViewById(R.id.oldlistNameText); //grab text of this to set filename
 
-        File directory = NewListActivity.this.getFilesDir();
+        File directory = OldListActivity.this.getFilesDir();
         File file = new File(directory, listName.getText().toString());
-        if(!file.exists()) {
+        if(file.exists()){file.delete();}
+
             try {
                 file.createNewFile();
                 writeToFile(getApplicationContext(),listName.getText().toString());
@@ -64,7 +120,8 @@ public class NewListActivity extends AppCompatActivity {
             }
 
 
-        }
+        
+
 
     }
     private void addlistItem(String item) {
@@ -74,26 +131,26 @@ public class NewListActivity extends AppCompatActivity {
     }
     private void configureListView() {
         // Find the ListView resource.
-        mainListView = (ListView) findViewById( R.id.newlistListview);
+        mainListView = (ListView) findViewById( R.id.oldlistListView);
 
         // Create and populate a List of planet names.
         //String[] planets = new String[] { "Mercury", "Venus", "Earth", "Mars",
-      //          "Jupiter", "Saturn", "Uranus", "Neptune"};
-      // ArrayList<String> planetList = new ArrayList<String>();
-      //  planetList.addAll( Arrays.asList(planets) );
+        //          "Jupiter", "Saturn", "Uranus", "Neptune"};
+        // ArrayList<String> planetList = new ArrayList<String>();
+        //  planetList.addAll( Arrays.asList(planets) );
 
         // Create ArrayAdapter using the planet list.
-        listAdapter = new ArrayAdapter<String>(this, R.layout.simplerow);
+        listAdapter = new ArrayAdapter<String>(this, R.layout.simplerow,dataArray);
 
 
         // Add more planets. If you passed a String[] instead of a List<String>
         // into the ArrayAdapter constructor, you must not add more items.
         // Otherwise an exception will occur.
-       // listAdapter.add( "Ceres" );
-       // listAdapter.add( "Pluto" );
-      //  listAdapter.add( "Haumea" );
-       // listAdapter.add( "Makemake" );
-       /// listAdapter.add( "Eris" );
+        // listAdapter.add( "Ceres" );
+        // listAdapter.add( "Pluto" );
+        //  listAdapter.add( "Haumea" );
+        // listAdapter.add( "Makemake" );
+        /// listAdapter.add( "Eris" );
 
         // Set the ArrayAdapter as the ListView's adapter.
         mainListView.setAdapter( listAdapter );
@@ -113,8 +170,8 @@ public class NewListActivity extends AppCompatActivity {
         });
     }
     private void configureAddItemButton(){
-        Button additemButton = (Button) findViewById(R.id.newaddlistitemButton);
-        final EditText newlistitemText = (EditText) findViewById(R.id.newlistitemEditText);
+        Button additemButton = (Button) findViewById(R.id.oldaddlistitemButton);
+        final EditText newlistitemText = (EditText) findViewById(R.id.oldlistitemEditText);
 
         additemButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -131,14 +188,13 @@ public class NewListActivity extends AppCompatActivity {
     }
 
     private void configureFinishButton(){
-        Button finishButton = (Button) findViewById(R.id.newlistviewFinishButton);
+        Button finishButton = (Button) findViewById(R.id.oldlistviewFinishButton);
 
         finishButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 //TODO: code to save list somewhere on phone.
-                saveNewList();
-
+                saveOldList();
                 finish();
             }
 

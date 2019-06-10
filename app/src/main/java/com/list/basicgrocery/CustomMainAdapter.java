@@ -1,21 +1,15 @@
-package com.example.basicgrocery;
+package com.list.basicgrocery;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.text.Editable;
-import android.text.method.KeyListener;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewParent;
-import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListAdapter;
@@ -25,14 +19,14 @@ import java.util.ArrayList;
 
 
 
-public class CustomAdapter extends BaseAdapter implements ListAdapter {
+public class CustomMainAdapter extends BaseAdapter implements ListAdapter {
     private ArrayList<String> list = new ArrayList<String>();
     private Context context;
     private boolean getViewFlag = true;
 
 
 
-    public CustomAdapter(ArrayList<String> list, Context context) {
+    public CustomMainAdapter(ArrayList<String> list, Context context) {
         this.list = list;
         this.context = context;
     }
@@ -58,7 +52,7 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
 
 
-        Log.i("CustomAdapter getView", "in getView in CustomAdapter");
+        Log.i("CustomMainAdapter", "in getView in CustomMainAdapter");
         View view = convertView;
         if(getViewFlag){
         if (view == null) {

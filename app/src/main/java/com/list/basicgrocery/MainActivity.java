@@ -1,4 +1,4 @@
-package com.example.basicgrocery;
+package com.list.basicgrocery;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,16 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,7 +15,7 @@ import java.util.Arrays;
 public class MainActivity extends AppCompatActivity {
 
     private ListView mainListView ;
-    private CustomAdapter myCustomAdapter;
+    private CustomMainAdapter myCustomMainAdapter;
 
 @Override
 protected void onResume(){
@@ -32,9 +24,9 @@ protected void onResume(){
 Log.i("Main onResume:", "IN onResume in main");
     fileList = new ArrayList(Arrays.asList(getApplicationContext().fileList()));
 
-    myCustomAdapter = new CustomAdapter(fileList, getApplicationContext());
+    myCustomMainAdapter = new CustomMainAdapter(fileList, getApplicationContext());
 
-    mainListView.setAdapter( myCustomAdapter );
+    mainListView.setAdapter(myCustomMainAdapter);
 
 }
     @Override
@@ -66,9 +58,9 @@ Log.i("Main onResume:", "IN onResume in main");
         ArrayList<String> fileList = new ArrayList<String>();
         fileList = new ArrayList(Arrays.asList(context.fileList()));
 
-        myCustomAdapter = new CustomAdapter( fileList , this);
+        myCustomMainAdapter = new CustomMainAdapter( fileList , this);
 
-        mainListView.setAdapter( myCustomAdapter );
+        mainListView.setAdapter(myCustomMainAdapter);
 
         /*mainListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
