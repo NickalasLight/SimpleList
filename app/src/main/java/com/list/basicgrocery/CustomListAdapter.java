@@ -17,13 +17,15 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-
+import java.util.Dictionary;
+import java.util.Hashtable;
 
 
 public class CustomListAdapter extends BaseAdapter implements ListAdapter {
     private ArrayList<String> list = new ArrayList<String>();
     private Context context;
     private boolean getViewFlag = true;
+    public Dictionary isCheckedDict = new Hashtable<Integer,String>();
 
 
 
@@ -34,6 +36,11 @@ public class CustomListAdapter extends BaseAdapter implements ListAdapter {
 
     public void Add(String item){this.list.add(item);}
 
+public String getIsChecked(int position){
+        if (isCheckedDict.get(position) != null) {
+        return (String) isCheckedDict.get(position);}
+        else{return "false";}
+}
     @Override
     public int getCount() {
         return list.size();
@@ -92,7 +99,16 @@ public class CustomListAdapter extends BaseAdapter implements ListAdapter {
                         myIntent.putExtra("fileName", result);
                         myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); //throws exception if this line is removed
                         myContext.startActivity(myIntent);
+
 */
+                        if (isCheckedDict.get(position)==null){isCheckedDict.put(position,"false");}
+
+                        Boolean isChecked = Boolean.valueOf(isCheckedDict.get(position).toString());
+
+                        if (isChecked == false || isChecked == null) {
+                        isCheckedDict.put(position,"true");}
+                        else{
+                            isCheckedDict.put(position,"false");}
 
                         listItemText.setPaintFlags(listItemText.getPaintFlags() ^ Paint.STRIKE_THRU_TEXT_FLAG);
 
@@ -157,8 +173,8 @@ public class CustomListAdapter extends BaseAdapter implements ListAdapter {
                 @Override
                 public void onClick(View v) {
                     //do something
-                    String fileName = list.get(position).toString();
-                    FileManager.deleteFile(v.getContext(), fileName);
+                    //String fileName = list.get(position).toString();
+                    //FileManager.deleteFile(v.getContext(), fileName);
                     list.remove(position); //or some other task
                     notifyDataSetChanged();
                 }

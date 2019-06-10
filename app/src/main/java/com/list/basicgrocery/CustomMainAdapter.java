@@ -83,10 +83,12 @@ public class CustomMainAdapter extends BaseAdapter implements ListAdapter {
                 //notifyDataSetChanged();
                 //listItemText.setText("TEST");
                 try {
-
+                    String myResult = result;
                     Context myContext = v.getContext();
                     Intent myIntent = new Intent(v.getContext(), OldListActivity.class);
-                    myIntent.putExtra("fileName", result);
+
+                    if(result == null) {myResult = "newList";}
+                    myIntent.putExtra("fileName", myResult);
                     myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); //throws exception if this line is removed
                     myContext.startActivity(myIntent);
 

@@ -44,7 +44,10 @@ Log.i("Main onResume:", "IN onResume in main");
        newListButton.setOnClickListener(new View.OnClickListener(){
            @Override
            public void onClick(View view) {
-               startActivity(new Intent(MainActivity.this, NewListActivity.class));
+
+               Intent myIntent = new Intent(MainActivity.this, OldListActivity.class);
+               //myIntent.putExtra("fileName", "newList");
+               startActivity(myIntent);
            }
 
        });

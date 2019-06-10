@@ -44,8 +44,19 @@ public class OldListActivity extends AppCompatActivity {
 
     }
     private void configureListNameText(){
+
         EditText myEditText = (EditText) findViewById(R.id.oldlistNameText);
+        if(fileName == null){fileName = "newList";
         myEditText.setText(fileName);
+        myEditText.setFocusable(true);
+        myEditText.requestFocus();
+        myEditText.selectAll();
+        }
+        else{
+            myEditText.setText(fileName);
+        }
+
+
     }
 
     private void readFromFiletoArrayList(){
@@ -94,9 +105,10 @@ public class OldListActivity extends AppCompatActivity {
             for(int i = 0; i < customListAdapter.getCount(); i++) {
 
                 String value = customListAdapter.getItem(i).toString();
+                String isChecked = customListAdapter.getIsChecked(i);
 
                 //outputStreamWriter.write(value+";");
-                outputStreamWriter.append(value+";");
+                outputStreamWriter.append(value+";"+isChecked+";");
             }
             outputStreamWriter.close();
         }
