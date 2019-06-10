@@ -32,6 +32,8 @@ public class CustomListAdapter extends BaseAdapter implements ListAdapter {
         this.context = context;
     }
 
+    public void Add(String item){this.list.add(item);}
+
     @Override
     public int getCount() {
         return list.size();
@@ -91,7 +93,9 @@ public class CustomListAdapter extends BaseAdapter implements ListAdapter {
                         myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); //throws exception if this line is removed
                         myContext.startActivity(myIntent);
 */
-                        listItemText.setPaintFlags(listItemText.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+
+                        listItemText.setPaintFlags(listItemText.getPaintFlags() ^ Paint.STRIKE_THRU_TEXT_FLAG);
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -124,10 +128,10 @@ public class CustomListAdapter extends BaseAdapter implements ListAdapter {
 
                     if(actionId == EditorInfo.IME_ACTION_DONE) {
                         Log.i("DONE:","Done pressed in listview edit text");
-                        String oldFileName = list.get(position).toString();
-                        String newFileName = listItemText.getText().toString();
-                        FileManager.renameFile(context,oldFileName,newFileName);
-                        list.set(position,newFileName);
+                        //String oldFileName = list.get(position).toString();
+                       // String newFileName = listItemText.getText().toString();
+                        //FileManager.renameFile(context,oldFileName,newFileName);
+                        list.set(position,listItemText.getText().toString());
                         listItemText.clearFocus();
                     }
 

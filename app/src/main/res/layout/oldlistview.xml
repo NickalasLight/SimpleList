@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
+    <ImageButton
         android:id="@+id/oldlistviewFinishButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -15,7 +15,11 @@
         android:text="Finish"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:text="finishButton" />
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:backgroundTint="@android:color/transparent"
+        android:src="@drawable/ic_check_black_24dp"/>
+
 
     <EditText
         android:id="@+id/oldlistNameText"
@@ -63,19 +67,25 @@
         app:layout_constraintTop_toBottomOf="@+id/oldlistNameText"
         tools:text="oldlistitemEditText" />
 
-    <Button
+    <ImageButton
         android:id="@+id/oldaddlistitemButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@android:color/transparent"
+        android:src="@drawable/ic_add_box_black_24dp"
         android:text="Add"
+        app:layout_constraintBottom_toTopOf="@+id/oldlistListView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/oldlistitemEditText"
         app:layout_constraintTop_toBottomOf="@+id/oldlistNameText"
-        tools:text="addlistitem" />
+        app:layout_constraintVertical_bias="0.268" />
 
 </android.support.constraint.ConstraintLayout>

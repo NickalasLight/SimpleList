@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import java.io.BufferedReader;
@@ -23,8 +24,9 @@ public class OldListActivity extends AppCompatActivity {
 
     private String fileName;
     private ListView mainListView ;
-    private ArrayAdapter<String> listAdapter ;
+    private CustomListAdapter customListAdapter;
     private ArrayList<String> dataArray = new ArrayList<String>();
+    //private String oldListName;
 
 
     @Override
@@ -89,9 +91,9 @@ public class OldListActivity extends AppCompatActivity {
         try {
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput(listName, Context.MODE_PRIVATE));
 
-            for(int i=0; i < listAdapter.getCount(); i++) {
+            for(int i = 0; i < customListAdapter.getCount(); i++) {
 
-                String value = listAdapter.getItem(i).toString();
+                String value = customListAdapter.getItem(i).toString();
 
                 //outputStreamWriter.write(value+";");
                 outputStreamWriter.append(value+";");
@@ -109,7 +111,9 @@ public class OldListActivity extends AppCompatActivity {
         EditText listName = (EditText) findViewById(R.id.oldlistNameText); //grab text of this to set filename
 
         File directory = OldListActivity.this.getFilesDir();
-        File file = new File(directory, listName.getText().toString());
+        File file = new File(directory, fileName);
+        if(file.exists()){file.delete();}
+        file = new File(directory, listName.getText().toString());
         if(file.exists()){file.delete();}
 
             try {
@@ -125,9 +129,10 @@ public class OldListActivity extends AppCompatActivity {
 
     }
     private void addlistItem(String item) {
-        listAdapter.add(item);
+        customListAdapter.Add(item); //TODO: implement adding item to list inside the customlistadapter class
+        customListAdapter.notifyDataSetChanged();
         mainListView.smoothScrollToPosition(mainListView.getMaxScrollAmount());
-        //mainListView.setAdapter(listAdapter);
+        //mainListView.setAdapter(customListAdapter);
     }
     private void configureListView() {
         // Find the ListView resource.
@@ -140,20 +145,21 @@ public class OldListActivity extends AppCompatActivity {
         //  planetList.addAll( Arrays.asList(planets) );
 
         // Create ArrayAdapter using the planet list.
-        listAdapter = new ArrayAdapter<String>(this, R.layout.simplerow,dataArray);
+
+        customListAdapter = new CustomListAdapter(dataArray,getApplicationContext());
 
 
         // Add more planets. If you passed a String[] instead of a List<String>
         // into the ArrayAdapter constructor, you must not add more items.
         // Otherwise an exception will occur.
-        // listAdapter.add( "Ceres" );
-        // listAdapter.add( "Pluto" );
-        //  listAdapter.add( "Haumea" );
-        // listAdapter.add( "Makemake" );
-        /// listAdapter.add( "Eris" );
+        // customListAdapter.add( "Ceres" );
+        // customListAdapter.add( "Pluto" );
+        //  customListAdapter.add( "Haumea" );
+        // customListAdapter.add( "Makemake" );
+        /// customListAdapter.add( "Eris" );
 
         // Set the ArrayAdapter as the ListView's adapter.
-        mainListView.setAdapter( listAdapter );
+        mainListView.setAdapter(customListAdapter);
 
 
         mainListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -164,13 +170,13 @@ public class OldListActivity extends AppCompatActivity {
                 //String message = "abc";
                 //intent.putExtra(EXTRA_MESSAGE, message);
                 //startActivity(intent);
-                listAdapter.remove(parent.getItemAtPosition(position).toString());
-                listAdapter.notifyDataSetChanged();
+                //customListAdapter.remove(parent.getItemAtPosition(position).toString());
+                customListAdapter.notifyDataSetChanged();
             }
         });
     }
     private void configureAddItemButton(){
-        Button additemButton = (Button) findViewById(R.id.oldaddlistitemButton);
+        ImageButton additemButton = (ImageButton) findViewById(R.id.oldaddlistitemButton);
         final EditText newlistitemText = (EditText) findViewById(R.id.oldlistitemEditText);
 
         additemButton.setOnClickListener(new View.OnClickListener(){
@@ -188,7 +194,7 @@ public class OldListActivity extends AppCompatActivity {
     }
 
     private void configureFinishButton(){
-        Button finishButton = (Button) findViewById(R.id.oldlistviewFinishButton);
+        ImageButton finishButton = (ImageButton) findViewById(R.id.oldlistviewFinishButton);
 
         finishButton.setOnClickListener(new View.OnClickListener(){
             @Override
