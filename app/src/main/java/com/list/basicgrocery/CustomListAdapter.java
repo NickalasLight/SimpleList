@@ -36,6 +36,9 @@ public class CustomListAdapter extends BaseAdapter implements ListAdapter {
 
     public void Add(String item){this.list.add(item);}
 
+public void setCheckedPosition(int position, String value) {
+        isCheckedDict.put(position,value);
+}
 public String getIsChecked(int position){
         if (isCheckedDict.get(position) != null) {
         return (String) isCheckedDict.get(position);}
@@ -74,6 +77,9 @@ public String getIsChecked(int position){
             final EditText listItemText = (EditText) view.findViewById(R.id.listitemEditText);
             listItemText.setText(list.get(position));
             listItemText.setCursorVisible(false);
+            if(isCheckedDict.get(position).toString().equals("true")){
+                listItemText.setPaintFlags(listItemText.getPaintFlags() ^ Paint.STRIKE_THRU_TEXT_FLAG);
+            }
 
 
             //final KeyListener orgKeyListener = listItemText.getKeyListener();
@@ -111,6 +117,8 @@ public String getIsChecked(int position){
                             isCheckedDict.put(position,"false");}
 
                         listItemText.setPaintFlags(listItemText.getPaintFlags() ^ Paint.STRIKE_THRU_TEXT_FLAG);
+
+
 
                     } catch (Exception e) {
                         e.printStackTrace();

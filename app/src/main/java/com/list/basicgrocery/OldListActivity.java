@@ -19,6 +19,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.Hashtable;
 
 public class OldListActivity extends AppCompatActivity {
 
@@ -26,6 +28,7 @@ public class OldListActivity extends AppCompatActivity {
     private ListView mainListView ;
     private CustomListAdapter customListAdapter;
     private ArrayList<String> dataArray = new ArrayList<String>();
+    private Dictionary activityDict = new Hashtable<Integer,String>();
     //private String oldListName;
 
 
@@ -58,6 +61,9 @@ public class OldListActivity extends AppCompatActivity {
 
 
     }
+    public void setActivityDict(int position, String value){
+        activityDict.put(position,value);
+    }
 
     private void readFromFiletoArrayList(){
         Context context = getApplicationContext();
@@ -65,10 +71,19 @@ public class OldListActivity extends AppCompatActivity {
         try {
             String filePath = myDir.getPath()+"/"+fileName;
             String fileString = getStringFromFile(filePath);
+            int i = 0;
             while(fileString.indexOf(";") != -1) {
+                if(fileString.substring(0, fileString.indexOf(";")).equals("true") || fileString.substring(0, fileString.indexOf(";")).equals("false")){
+                    this.setActivityDict(i,fileString.substring(0, fileString.indexOf(";")));
+                    fileString = fileString.substring(fileString.indexOf(";")+1,fileString.length());
+                    i=i+1;
+                }
+                else{
                 dataArray.add(fileString.substring(0, fileString.indexOf(";")));
-                fileString = fileString.substring(fileString.indexOf(";")+1,fileString.length());
-            }
+                    fileString = fileString.substring(fileString.indexOf(";")+1,fileString.length());
+
+
+            }}
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -159,6 +174,7 @@ public class OldListActivity extends AppCompatActivity {
         // Create ArrayAdapter using the planet list.
 
         customListAdapter = new CustomListAdapter(dataArray,getApplicationContext());
+        customListAdapter.isCheckedDict = this.activityDict;
 
 
         // Add more planets. If you passed a String[] instead of a List<String>
@@ -213,6 +229,7 @@ public class OldListActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //TODO: code to save list somewhere on phone.
                 saveOldList();
+                activityDict = customListAdapter.isCheckedDict;
                 finish();
             }
 
