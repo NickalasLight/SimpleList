@@ -2,6 +2,7 @@ package com.list.basicgrocery;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -77,10 +78,11 @@ public String getIsChecked(int position){
             final EditText listItemText = (EditText) view.findViewById(R.id.listitemEditText);
             listItemText.setText(list.get(position));
             listItemText.setCursorVisible(false);
-            
+
             if(isCheckedDict.get(position) != null) {
             if(isCheckedDict.get(position).toString().equals("true")){
                 listItemText.setPaintFlags(listItemText.getPaintFlags() ^ Paint.STRIKE_THRU_TEXT_FLAG);
+                listItemText.setTextColor(Color.GRAY);
             }}
 
 
@@ -117,6 +119,10 @@ public String getIsChecked(int position){
                         isCheckedDict.put(position,"true");}
                         else{
                             isCheckedDict.put(position,"false");}
+
+                        int color = listItemText.getCurrentTextColor();
+                        if ( color  == Color.GRAY ) {listItemText.setTextColor(Color.BLACK);}
+                        else{listItemText.setTextColor(Color.GRAY);}
 
                         listItemText.setPaintFlags(listItemText.getPaintFlags() ^ Paint.STRIKE_THRU_TEXT_FLAG);
 
