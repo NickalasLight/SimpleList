@@ -32,7 +32,14 @@ public class OldListActivity extends AppCompatActivity {
     private ArrayList<String> dataArray = new ArrayList<String>();
     private Dictionary activityDict = new Hashtable<Integer,String>();
     //private String oldListName;
+private boolean ifFileExists(String fileName)
+{
+    File directory = OldListActivity.this.getFilesDir();
+    File file = new File(directory, fileName);
+    if(file.exists()){return true;}
+    else {return false;}
 
+}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +67,17 @@ public class OldListActivity extends AppCompatActivity {
     private void configureListNameText(){
 
         EditText myEditText = (EditText) findViewById(R.id.oldlistNameText);
+
         if(fileName == null){fileName = "newList";
+        int i = 1;
+        while(ifFileExists(fileName)) {
+            fileName = "newList " + i;
+            i = i + 1;
+
+            }
+
+
+
         myEditText.setText(fileName);
         myEditText.setFocusable(true);
         myEditText.requestFocus();
