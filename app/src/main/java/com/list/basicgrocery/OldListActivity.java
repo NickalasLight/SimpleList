@@ -2,6 +2,7 @@ package com.list.basicgrocery;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
@@ -169,7 +170,19 @@ private boolean ifFileExists(String fileName)
         File file = new File(directory, fileName);
         if(file.exists()){file.delete();}
         file = new File(directory, listName.getText().toString());
-        if(file.exists()){file.delete();}
+        if(file.exists()) {
+            Context context = getApplicationContext();
+
+            AlertDialog.Builder dlgAlert = new AlertDialog.Builder(OldListActivity.this);
+            dlgAlert.setMessage("This is an alert with no consequence");
+            dlgAlert.setTitle("App Title");
+            dlgAlert.setPositiveButton("OK", null);
+            dlgAlert.setCancelable(true);
+            dlgAlert.create().show();
+            {
+                file.delete();
+            }
+        }
 
             try {
                 file.createNewFile();
