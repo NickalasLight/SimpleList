@@ -1,25 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
     <EditText
         android:id="@+id/listitemEditText"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+
+
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_toStartOf="@+id/listitemAddButton"
+        android:layout_toLeftOf="@+id/listitemAddButton"
+        android:background="@android:color/transparent"
         android:paddingLeft="8dp"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:background="@android:color/transparent"
-        android:singleLine="true"
-
-
-
-
-
-        />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/listitemAddButton"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/listitemDeleteButton"
@@ -27,19 +37,25 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="5dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:backgroundTint="@android:color/transparent"
-        android:src="@drawable/ic_delete_forever_black_24dp"/>
+        android:src="@drawable/ic_delete_forever_black_24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/listitemAddButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toLeftOf="@id/listitemDeleteButton"
         android:layout_centerVertical="true"
-        android:layout_marginRight="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_toLeftOf="@id/listitemDeleteButton"
         android:backgroundTint="@android:color/transparent"
-        android:src="@drawable/ic_edit_black_24dp"/>
+        android:src="@drawable/ic_edit_black_24dp"
+        app:layout_constraintEnd_toStartOf="@+id/listitemDeleteButton"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>
