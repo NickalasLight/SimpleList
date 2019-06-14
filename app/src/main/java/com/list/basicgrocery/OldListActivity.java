@@ -179,6 +179,8 @@ private boolean ifFileExists(String fileName)
             dlgAlert.setPositiveButton("OK", null);
             dlgAlert.setCancelable(true);
             dlgAlert.create().show();
+            //Todo: must create break here, and then create listener for messagebox. It works different from .Net.
+
             {
                 file.delete();
             }
