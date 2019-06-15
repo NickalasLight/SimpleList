@@ -101,15 +101,15 @@ private boolean ifFileExists(String fileName)
             String filePath = myDir.getPath()+"/"+fileName;
             String fileString = getStringFromFile(filePath);
             int i = 0;
-            while(fileString.indexOf(";") != -1) {
-                if(fileString.substring(0, fileString.indexOf(";")).equals("true") || fileString.substring(0, fileString.indexOf(";")).equals("false")){
-                    this.setActivityDict(i,fileString.substring(0, fileString.indexOf(";")));
-                    fileString = fileString.substring(fileString.indexOf(";")+1,fileString.length());
+            while(fileString.indexOf("►") != -1) {
+                if(fileString.substring(0, fileString.indexOf("►")).equals("▲") || fileString.substring(0, fileString.indexOf("►")).equals("▼")){
+                    this.setActivityDict(i,fileString.substring(0, fileString.indexOf("►")));
+                    fileString = fileString.substring(fileString.indexOf("►")+1,fileString.length());
                     i=i+1;
                 }
                 else{
-                dataArray.add(fileString.substring(0, fileString.indexOf(";")));
-                    fileString = fileString.substring(fileString.indexOf(";")+1,fileString.length());
+                dataArray.add(fileString.substring(0, fileString.indexOf("►")));
+                    fileString = fileString.substring(fileString.indexOf("►")+1,fileString.length());
 
 
             }}
@@ -152,7 +152,7 @@ private boolean ifFileExists(String fileName)
                 String isChecked = customListAdapter.getIsChecked(i);
 
                 //outputStreamWriter.write(value+";");
-                outputStreamWriter.append(value+";"+isChecked+";");
+                outputStreamWriter.append(value+"►"+isChecked+"►");
             }
             outputStreamWriter.close();
         }

@@ -43,7 +43,7 @@ public void setCheckedPosition(int position, String value) {
 public String getIsChecked(int position){
         if (isCheckedDict.get(position) != null) {
         return (String) isCheckedDict.get(position);}
-        else{return "false";}
+        else{return "▼";}
 }
     @Override
     public int getCount() {
@@ -80,7 +80,7 @@ public String getIsChecked(int position){
             listItemText.setCursorVisible(false);
 
             if(isCheckedDict.get(position) != null) {
-            if(isCheckedDict.get(position).toString().equals("true")){
+            if(isCheckedDict.get(position).toString().equals("▲")){
                 listItemText.setPaintFlags(listItemText.getPaintFlags() ^ Paint.STRIKE_THRU_TEXT_FLAG);
                 listItemText.setTextColor(Color.GRAY);
             }}
@@ -111,14 +111,14 @@ public String getIsChecked(int position){
                         myContext.startActivity(myIntent);
 
 */
-                        if (isCheckedDict.get(position)==null){isCheckedDict.put(position,"false");}
+                        if (isCheckedDict.get(position)==null){isCheckedDict.put(position,"▼");}
 
                         Boolean isChecked = Boolean.valueOf(isCheckedDict.get(position).toString());
 
-                        if (isChecked == false || isChecked == null) {
-                        isCheckedDict.put(position,"true");}
+                        if(isCheckedDict.get(position).toString().equals("▼")) {
+                        isCheckedDict.put(position,"▲");}
                         else{
-                            isCheckedDict.put(position,"false");}
+                            isCheckedDict.put(position,"▼");}
 
                         int color = listItemText.getCurrentTextColor();
                         if ( color  == Color.GRAY ) {listItemText.setTextColor(Color.BLACK);}
