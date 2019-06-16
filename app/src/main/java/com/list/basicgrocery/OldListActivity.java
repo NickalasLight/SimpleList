@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -41,6 +42,23 @@ private boolean ifFileExists(String fileName)
     else {return false;}
 
 }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            // do something on back.
+            ImageButton additemButton = (ImageButton) findViewById(R.id.oldaddlistitemButton);
+            additemButton.callOnClick();
+
+            saveOldList();
+
+            activityDict = customListAdapter.isCheckedDict;
+            finish();
+            return true;
+        }
+
+        return super.onKeyDown(keyCode, event);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -271,8 +289,11 @@ private boolean ifFileExists(String fileName)
             @Override
             public void onClick(View view) {
                 //TODO: code to save list somewhere on phone.
+                ImageButton additemButton = (ImageButton) findViewById(R.id.oldaddlistitemButton);
+                additemButton.callOnClick();
                 saveOldList();
                 activityDict = customListAdapter.isCheckedDict;
+
                 finish();
             }
 
