@@ -4,16 +4,19 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -74,7 +77,7 @@ private boolean ifFileExists(String fileName)
         fileName = getIntent().getStringExtra("fileName");
 
 
-
+        configureAddItemText();
         configureFinishButton();
         configureAddItemButton();
         //getIntent().getExtras();
@@ -83,6 +86,26 @@ private boolean ifFileExists(String fileName)
         configureListView();
 
     }
+    private void configureAddItemText () {
+final EditText listItemText = (EditText) findViewById(R.id.oldlistitemEditText);
+        listItemText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+
+                if(actionId == EditorInfo.IME_ACTION_DONE) {
+                    Log.i("DONE:","Done pressed in listview edit text");
+                   // list.set(position,newFileName);
+                    //listItemText.clearFocus();
+
+                    if (listItemText.length() > 0) {
+                        addlistItem(listItemText.getText().toString());
+                        listItemText.setText("");
+                    }
+                }
+    return true;
+    }
+        });
+}
     private void configureListNameText(){
 
         EditText myEditText = (EditText) findViewById(R.id.oldlistNameText);
@@ -263,6 +286,10 @@ private boolean ifFileExists(String fileName)
                 customListAdapter.notifyDataSetChanged();
             }
         });
+
+
+
+
     }
     private void configureAddItemButton(){
         ImageButton additemButton = (ImageButton) findViewById(R.id.oldaddlistitemButton);
