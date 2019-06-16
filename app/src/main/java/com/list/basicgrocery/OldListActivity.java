@@ -37,11 +37,12 @@ public class OldListActivity extends AppCompatActivity {
     private ArrayList<String> dataArray = new ArrayList<String>();
     private Dictionary activityDict = new Hashtable<Integer,String>();
     //private String oldListName;
-private boolean ifFileExists(String fileName)
+
+    private boolean ifFileExists(String fileName)
 {
     File directory = OldListActivity.this.getFilesDir();
     File file = new File(directory, fileName);
-    if(file.exists()){return true;}
+    if(file.exists() && !fileName.equals("")){return true;}
     else {return false;}
 
 }
@@ -84,7 +85,21 @@ private boolean ifFileExists(String fileName)
         configureListNameText();
         readFromFiletoArrayList();
         configureListView();
+        //configureExistFileAlert();
 
+    }
+
+
+    private void ShowExistFileAlert(){
+ //       Context context = getApplicationContext();
+
+        AlertDialog.Builder dlgAlert = new AlertDialog.Builder(OldListActivity.this);
+        dlgAlert.setMessage("A list with this name already exists! Please change to a new list name.");
+        dlgAlert.setTitle("List Already Exists!");
+        dlgAlert.setPositiveButton("OK", null);
+        dlgAlert.setCancelable(true);
+        dlgAlert.create().show();
+        //Todo: must create break here, and then create listener for messagebox. It works different from .Net.
     }
     private void configureAddItemText () {
 final EditText listItemText = (EditText) findViewById(R.id.oldlistitemEditText);
@@ -212,15 +227,7 @@ final EditText listItemText = (EditText) findViewById(R.id.oldlistitemEditText);
         if(file.exists()){file.delete();}
         file = new File(directory, listName.getText().toString());
         if(file.exists()) {
-            Context context = getApplicationContext();
 
-            AlertDialog.Builder dlgAlert = new AlertDialog.Builder(OldListActivity.this);
-            dlgAlert.setMessage("This is an alert with no consequence");
-            dlgAlert.setTitle("App Title");
-            dlgAlert.setPositiveButton("OK", null);
-            dlgAlert.setCancelable(true);
-            dlgAlert.create().show();
-            //Todo: must create break here, and then create listener for messagebox. It works different from .Net.
 
             {
                 file.delete();
@@ -311,17 +318,23 @@ final EditText listItemText = (EditText) findViewById(R.id.oldlistitemEditText);
 
     private void configureFinishButton(){
         ImageButton finishButton = (ImageButton) findViewById(R.id.oldlistviewFinishButton);
-
+        ImageButton additemButton = (ImageButton) findViewById(R.id.oldaddlistitemButton);
+        additemButton.callOnClick();
+        final EditText editTextName = (EditText) findViewById(R.id.oldlistNameText);
         finishButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 //TODO: code to save list somewhere on phone.
-                ImageButton additemButton = (ImageButton) findViewById(R.id.oldaddlistitemButton);
-                additemButton.callOnClick();
+
+
+                String editTextString = editTextName.getText().toString();
+                boolean fileExists = ifFileExists(editTextString);
+                if(fileExists && !editTextString.equals(fileName))
+                {ShowExistFileAlert();}
+                else{
                 saveOldList();
                 activityDict = customListAdapter.isCheckedDict;
-
-                finish();
+                finish();}
             }
 
         });

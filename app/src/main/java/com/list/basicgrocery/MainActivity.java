@@ -2,14 +2,17 @@ package com.list.basicgrocery;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Spinner;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,6 +26,24 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.mymenu, menu);
+        //configureMenuSpinner();
+
+
+       // MenuItem item = menu.findItem(R.id.spinner1);
+       // Spinner item = (Spinner) menu.findItem(R.id.spinner1);
+
+        //Spinner dropdown = item;// (Spinner) menu.findItem(R.id.spinner1).getActionView();//.getActionView(item);
+
+//create a list of items for the spinner.
+        //String[] items = new String[]{"1", "2", "three"};
+//create an adapter to describe how the items are displayed, adapters are used in several places in android.
+//There are multiple variations of this, but this is the basic variant.
+        //ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        //ArrayAdapter<String> adapter = new ArrayAdapter<>(this)
+//set the spinners adapter to the previously created one.
+        //item.setAdapter(adapter);
+
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -31,8 +52,11 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.mybutton) {
+        //if (id == R.id.mybutton) {
             // do something here
+       // }
+        if(id == R.id.spinner1) {
+
         }
         return super.onOptionsItemSelected(item);
     }
@@ -56,6 +80,7 @@ Log.i("Main onResume:", "IN onResume in main");
 
         configureNewListButton ();
         configureListView();
+       // configureMenu();
     }
 
    private void configureNewListButton(){
@@ -71,6 +96,18 @@ Log.i("Main onResume:", "IN onResume in main");
            }
 
        });
+   }
+
+   private void configureMenuSpinner(){
+       //get the spinner from the xml.
+       Spinner dropdown = findViewById(R.id.spinner1);
+//create a list of items for the spinner.
+       String[] items = new String[]{"1", "2", "three"};
+//create an adapter to describe how the items are displayed, adapters are used in several places in android.
+//There are multiple variations of this, but this is the basic variant.
+       ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
+//set the spinners adapter to the previously created one.
+       dropdown.setAdapter(adapter);
    }
     private void configureListView() {
         // Find the ListView resource.

@@ -1,7 +1,11 @@
 package com.list.basicgrocery;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.view.ContextThemeWrapper;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -48,6 +52,25 @@ public class CustomMainAdapter extends BaseAdapter implements ListAdapter {
         //just return 0 if your list items do not have an Id variable.
     }
 
+    private void ShowDeleteListAlert(final View v, final int position){
+
+        AlertDialog.Builder dlgAlert = new AlertDialog.Builder(new ContextThemeWrapper(context.getApplicationContext(), R.style.myDialog));
+        dlgAlert.setMessage("Are you sure you want to permanently delete this list?");
+        dlgAlert.setTitle("Are You Sure?");
+        dlgAlert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                // Continue with delete operation
+                String fileName = list.get(position).toString();
+                FileManager.deleteFile(v.getContext(), fileName);
+                list.remove(position); //or some other task
+                notifyDataSetChanged();
+            }});
+        dlgAlert.setNegativeButton("NO",null);
+        dlgAlert.setCancelable(true);
+       dlgAlert.show();
+        // dlgAlert.create().show();
+
+    }
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 
@@ -153,6 +176,8 @@ public class CustomMainAdapter extends BaseAdapter implements ListAdapter {
             @Override
             public void onClick(View v) {
                 //do something
+               // ShowDeleteListAlert(v,position); --> figure out notifications/broadcasts first
+
                 String fileName = list.get(position).toString();
                 FileManager.deleteFile(v.getContext(), fileName);
                 list.remove(position); //or some other task

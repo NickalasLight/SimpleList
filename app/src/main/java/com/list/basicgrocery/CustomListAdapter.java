@@ -164,6 +164,7 @@ public String getIsChecked(int position){
                        // String newFileName = listItemText.getText().toString();
                         //FileManager.renameFile(context,oldFileName,newFileName);
                         list.set(position,listItemText.getText().toString());
+                        listItemText.setSingleLine(false);
                         listItemText.clearFocus();
                     }
 
@@ -212,6 +213,7 @@ public String getIsChecked(int position){
 
                         myEditText.setFocusableInTouchMode(true);
                         myEditText.setImeOptions(EditorInfo.IME_ACTION_DONE);
+                        myEditText.setSingleLine(true);
                         //myEditText.setKeyListener(orgKeyListener);
                         myEditText.setSelectAllOnFocus(true);
                         myEditText.requestFocus();
