@@ -81,7 +81,7 @@ public class OldListActivity extends AppCompatActivity {
         configureAddItemText();
         configureFinishButton();
         configureAddItemButton();
-        //getIntent().getExtras();
+        //getIntent().getExtras();f
         configureListNameText();
         readFromFiletoArrayList();
         configureListView();

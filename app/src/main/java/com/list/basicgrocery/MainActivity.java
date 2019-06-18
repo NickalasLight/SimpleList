@@ -51,7 +51,13 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        //if (id == R.id.mybutton) {
+        if (id == R.id.menuprivacypolicy) {
+            Intent intent = new Intent(MainActivity.this, PrivacyPolicy.class);
+            //String message = "abc";
+            //intent.putExtra(EXTRA_MESSAGE, message);
+            startActivity(intent);
+
+        }
             // do something here
 
         return super.onOptionsItemSelected(item);
