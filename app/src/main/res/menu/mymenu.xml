@@ -1,9 +1,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
-        android:title="testYEET"
-        android:id="@+id/myspinnermenuitem"
-        app:actionLayout="@layout/my_spinner"
-        app:showAsAction="always" />
+   <item android:id="@+id/testitem1"
+       android:title="Privacy Policy"
+       app:showAsAction="never"
+       />
+   <item android:id="@+id/testitem2"
+       android:title="List Templates"
+       app:showAsAction="never"
+       />
 </menu>

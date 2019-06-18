@@ -29,34 +29,8 @@ public class MainActivity extends AppCompatActivity {
         try {
             getMenuInflater().inflate(R.menu.mymenu, menu);
 
+                    super.onCreateOptionsMenu(menu);
 
-            MenuItem spinnerMenuItem = menu.findItem(R.id.myspinnermenuitem);
-
-            // MenuItem copyItem = menu.findItem(R.id.action_copy);
-          //  spinnerMenuItem.setActionView(R.layout.my_spinner);
-            Spinner spinner = (Spinner) spinnerMenuItem.getActionView();
-
-            // Spinner spinner = (Spinner) spinnerMenuItem.getActionView();//.findViewById(R.id.myspinnerYeet); //(Spinner) findViewById(R.id.myspinner);
-// Create an ArrayAdapter using the string array and a default spinner layout
-            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                    R.array.planets_array, android.R.layout.simple_spinner_item);
-// Specify the layout to use when the list of choices appears
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-// Apply the adapter to the spinner
-            //spinner.setAdapter(adapter);
-
-            ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, R.array.planets_array){
-                @Override
-                public View getView(int position, View convertView, ViewGroup parent) {
-                    // this part is needed for hiding the original view
-                    View view = super.getView(position, convertView, parent);
-                    view.setVisibility(View.GONE);
-
-                    return view;
-                }
-            };
-
-            spinner.setAdapter(adapter);
 
         }
         catch(Exception e){
