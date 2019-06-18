@@ -2,11 +2,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:title="test"
-        android:id="@+id/spinner1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:drawable/btn_dropdown"
-        android:icon="@drawable/ic_menu_white_24dp"
-        android:spinnerMode="dropdown"/>
+        android:title="testYEET"
+        android:id="@+id/myspinnermenuitem"
+        app:actionLayout="@layout/my_spinner"
+        app:showAsAction="always" />
 </menu>

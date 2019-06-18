@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -25,26 +26,50 @@ public class MainActivity extends AppCompatActivity {
     // create an action bar button
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.mymenu, menu);
-        //configureMenuSpinner();
+        try {
+            getMenuInflater().inflate(R.menu.mymenu, menu);
 
 
-       // MenuItem item = menu.findItem(R.id.spinner1);
-       // Spinner item = (Spinner) menu.findItem(R.id.spinner1);
+            MenuItem spinnerMenuItem = menu.findItem(R.id.myspinnermenuitem);
 
-        //Spinner dropdown = item;// (Spinner) menu.findItem(R.id.spinner1).getActionView();//.getActionView(item);
+            // MenuItem copyItem = menu.findItem(R.id.action_copy);
+          //  spinnerMenuItem.setActionView(R.layout.my_spinner);
+            Spinner spinner = (Spinner) spinnerMenuItem.getActionView();
 
-//create a list of items for the spinner.
-        //String[] items = new String[]{"1", "2", "three"};
-//create an adapter to describe how the items are displayed, adapters are used in several places in android.
-//There are multiple variations of this, but this is the basic variant.
-        //ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
-        //ArrayAdapter<String> adapter = new ArrayAdapter<>(this)
-//set the spinners adapter to the previously created one.
-        //item.setAdapter(adapter);
+            // Spinner spinner = (Spinner) spinnerMenuItem.getActionView();//.findViewById(R.id.myspinnerYeet); //(Spinner) findViewById(R.id.myspinner);
+// Create an ArrayAdapter using the string array and a default spinner layout
+            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                    R.array.planets_array, android.R.layout.simple_spinner_item);
+// Specify the layout to use when the list of choices appears
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+// Apply the adapter to the spinner
+            //spinner.setAdapter(adapter);
 
+            ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, R.array.planets_array){
+                @Override
+                public View getView(int position, View convertView, ViewGroup parent) {
+                    // this part is needed for hiding the original view
+                    View view = super.getView(position, convertView, parent);
+                    view.setVisibility(View.GONE);
 
-        return super.onCreateOptionsMenu(menu);
+                    return view;
+                }
+            };
+
+            spinner.setAdapter(adapter);
+
+        }
+        catch(Exception e){
+            Log.d("bleh", "onCreateOptionsMenu: " + e);
+
+        }finally {
+            return super.onCreateOptionsMenu(menu);
+        }
+    }
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+
+        return super.onPrepareOptionsMenu(menu);
     }
 
     // handle button activities
@@ -54,10 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
         //if (id == R.id.mybutton) {
             // do something here
-       // }
-        if(id == R.id.spinner1) {
 
-        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -98,17 +120,7 @@ Log.i("Main onResume:", "IN onResume in main");
        });
    }
 
-   private void configureMenuSpinner(){
-       //get the spinner from the xml.
-       Spinner dropdown = findViewById(R.id.spinner1);
-//create a list of items for the spinner.
-       String[] items = new String[]{"1", "2", "three"};
-//create an adapter to describe how the items are displayed, adapters are used in several places in android.
-//There are multiple variations of this, but this is the basic variant.
-       ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
-//set the spinners adapter to the previously created one.
-       dropdown.setAdapter(adapter);
-   }
+
     private void configureListView() {
         // Find the ListView resource.
         mainListView = (ListView) findViewById( R.id.mainlistListView );

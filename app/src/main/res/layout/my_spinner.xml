@@ -1,0 +1,10 @@
+<Spinner xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/myspinnerYeet"
+    android:background="@drawable/ic_menu_white_24dp"
+    tools:layout_editor_absoluteX="8dp"
+    tools:layout_editor_absoluteY="70dp"
+    android:spinnerMode="dropdown" />
+
