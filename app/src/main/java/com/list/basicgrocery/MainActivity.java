@@ -1,5 +1,6 @@
 package com.list.basicgrocery;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.view.MenuItemCompat;
@@ -29,7 +30,8 @@ public class MainActivity extends AppCompatActivity {
         try {
             getMenuInflater().inflate(R.menu.mymenu, menu);
 
-                    super.onCreateOptionsMenu(menu);
+
+            super.onCreateOptionsMenu(menu);
 
 
         }
@@ -83,6 +85,7 @@ Log.i("Main onResume:", "IN onResume in main");
         configureNewListButton ();
         configureListView();
        // configureMenu();
+        getSupportActionBar().setTitle("My Lists");
     }
 
    private void configureNewListButton(){
