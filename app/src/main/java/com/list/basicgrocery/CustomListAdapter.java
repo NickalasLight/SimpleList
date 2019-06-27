@@ -102,6 +102,7 @@ public String getIsChecked(int position){
                     //list.remove(position); //or some other task
                     //notifyDataSetChanged();
                     //listItemText.setText("TEST");
+                    //if listItem text.focus() = true skip over this block.
                     try {
 
                         /*Context myContext = v.getContext();
@@ -111,21 +112,28 @@ public String getIsChecked(int position){
                         myContext.startActivity(myIntent);
 
 */
-                        if (isCheckedDict.get(position)==null){isCheckedDict.put(position,"▼");}
+                        if(!listItemText.hasFocus()) {
+                            if (isCheckedDict.get(position) == null) {
+                                isCheckedDict.put(position, "▼");
+                            }
 
-                        Boolean isChecked = Boolean.valueOf(isCheckedDict.get(position).toString());
+                            Boolean isChecked = Boolean.valueOf(isCheckedDict.get(position).toString());
 
-                        if(isCheckedDict.get(position).toString().equals("▼")) {
-                        isCheckedDict.put(position,"▲");}
-                        else{
-                            isCheckedDict.put(position,"▼");}
+                            if (isCheckedDict.get(position).toString().equals("▼")) {
+                                isCheckedDict.put(position, "▲");
+                            } else {
+                                isCheckedDict.put(position, "▼");
+                            }
 
-                        int color = listItemText.getCurrentTextColor();
-                        if ( color  == Color.GRAY ) {listItemText.setTextColor(Color.BLACK);}
-                        else{listItemText.setTextColor(Color.GRAY);}
+                            int color = listItemText.getCurrentTextColor();
+                            if (color == Color.GRAY) {
+                                listItemText.setTextColor(Color.BLACK);
+                            } else {
+                                listItemText.setTextColor(Color.GRAY);
+                            }
 
-                        listItemText.setPaintFlags(listItemText.getPaintFlags() ^ Paint.STRIKE_THRU_TEXT_FLAG);
-
+                            listItemText.setPaintFlags(listItemText.getPaintFlags() ^ Paint.STRIKE_THRU_TEXT_FLAG);
+                        }
 
 
                     } catch (Exception e) {

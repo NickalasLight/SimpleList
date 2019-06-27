@@ -207,19 +207,17 @@ final EditText listItemText = (EditText) findViewById(R.id.oldlistitemEditText);
                 String value = customListAdapter.getItem(i).toString();
                 String isChecked = customListAdapter.getIsChecked(i);
 
-                //outputStreamWriter.write(value+";");
                 outputStreamWriter.append(value+"►"+isChecked+"►");
             }
             outputStreamWriter.close();
         }
         catch (IOException e) {
-            // Log.e("Exception", "File write failed: " + e.toString());
+
         }
     }
 
     private void saveOldList() {
-        //set textbox somewhere to have a default name, check so it doesn't conflict with oter lists
-        //text is used to set list name. Able to be changed by user.
+
         EditText listName = (EditText) findViewById(R.id.oldlistNameText); //grab text of this to set filename
 
         File directory = OldListActivity.this.getFilesDir();
@@ -253,31 +251,12 @@ final EditText listItemText = (EditText) findViewById(R.id.oldlistitemEditText);
         //mainListView.setAdapter(customListAdapter);
     }
     private void configureListView() {
-        // Find the ListView resource.
+
         mainListView = (ListView) findViewById( R.id.oldlistListView);
-
-        // Create and populate a List of planet names.
-        //String[] planets = new String[] { "Mercury", "Venus", "Earth", "Mars",
-        //          "Jupiter", "Saturn", "Uranus", "Neptune"};
-        // ArrayList<String> planetList = new ArrayList<String>();
-        //  planetList.addAll( Arrays.asList(planets) );
-
-        // Create ArrayAdapter using the planet list.
 
         customListAdapter = new CustomListAdapter(dataArray,getApplicationContext());
         customListAdapter.isCheckedDict = this.activityDict;
 
-
-        // Add more planets. If you passed a String[] instead of a List<String>
-        // into the ArrayAdapter constructor, you must not add more items.
-        // Otherwise an exception will occur.
-        // customListAdapter.add( "Ceres" );
-        // customListAdapter.add( "Pluto" );
-        //  customListAdapter.add( "Haumea" );
-        // customListAdapter.add( "Makemake" );
-        /// customListAdapter.add( "Eris" );
-
-        // Set the ArrayAdapter as the ListView's adapter.
         mainListView.setAdapter(customListAdapter);
 
 
