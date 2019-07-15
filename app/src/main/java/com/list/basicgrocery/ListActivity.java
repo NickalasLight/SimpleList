@@ -30,7 +30,7 @@ import java.util.Hashtable;
 
 public class ListActivity extends AppCompatActivity {
 
-    private String fileName;
+    private String mfileName;
     private ListView mainListView ;
     private CustomListAdapter customListAdapter;
     private ArrayList<String> dataArray = new ArrayList<String>();
@@ -44,24 +44,6 @@ public class ListActivity extends AppCompatActivity {
     else {return false;}
 
 }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event)  {
-        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-
-            ImageButton additemButton = (ImageButton) findViewById(R.id.addlistitemButton);
-            additemButton.callOnClick();
-
-            saveOldList();
-
-            activityDict = customListAdapter.isCheckedDict;
-            finish();
-            return true;
-        }
-
-        return super.onKeyDown(keyCode, event);
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,17 +55,15 @@ public class ListActivity extends AppCompatActivity {
 
         setContentView(R.layout.oldlistview);
 
-        fileName = getIntent().getStringExtra("fileName");
+        mfileName = getIntent().getStringExtra("fileName");
 
 
         configureAddItemText();
         configureFinishButton();
         configureAddItemButton();
-        //getIntent().getExtras();f
         configureListNameText();
         readFromFiletoArrayList();
         configureListView();
-        //configureExistFileAlert();
 
     }
 
@@ -123,23 +103,24 @@ final EditText listItemText = (EditText) findViewById(R.id.listitemEditText);
 
         EditText myEditText = (EditText) findViewById(R.id.listNameText);
 
-        if(fileName == null){fileName = "newList";
+        if(mfileName == null){
+            mfileName = "newList";
         int i = 1;
-        while(ifFileExists(fileName)) {
-            fileName = "newList " + i;
+        while(ifFileExists(mfileName)) {
+            mfileName = "newList " + i;
             i = i + 1;
 
             }
 
 
 
-        myEditText.setText(fileName);
+        myEditText.setText(mfileName);
         myEditText.setFocusable(true);
         myEditText.requestFocus();
         myEditText.selectAll();
         }
         else{
-            myEditText.setText(fileName);
+            myEditText.setText(mfileName);
         }
 
 
@@ -152,7 +133,7 @@ final EditText listItemText = (EditText) findViewById(R.id.listitemEditText);
         Context context = getApplicationContext();
         File myDir = ListActivity.this.getFilesDir();
         try {
-            String filePath = myDir.getPath()+"/"+fileName;
+            String filePath = myDir.getPath()+"/"+ mfileName;
             String fileString = getStringFromFile(filePath);
             int i = 0;
             while(fileString.indexOf("►") != -1) {
@@ -219,7 +200,7 @@ final EditText listItemText = (EditText) findViewById(R.id.listitemEditText);
         EditText listName = (EditText) findViewById(R.id.listNameText); //grab text of this to set filename
 
         File directory = ListActivity.this.getFilesDir();
-        File file = new File(directory, fileName);
+        File file = new File(directory, mfileName);
         if(file.exists()){file.delete();}
         file = new File(directory, listName.getText().toString());
         if(file.exists()) {
@@ -303,18 +284,29 @@ final EditText listItemText = (EditText) findViewById(R.id.listitemEditText);
             @Override
             public void onClick(View view) {
                 //TODO: code to save list somewhere on phone.
-
-
-                String editTextString = editTextName.getText().toString();
-                boolean fileExists = ifFileExists(editTextString);
-                if(fileExists && !editTextString.equals(fileName))
-                {ShowExistFileAlert();}
-                else{
-                saveOldList();
-                activityDict = customListAdapter.isCheckedDict;
                 finish();}
-            }
+
 
         });
+    }
+    public void saveList(String fileName) {
+
+        boolean fileExists = ifFileExists(fileName);
+        if(fileExists && !fileName.equals(mfileName))
+        {ShowExistFileAlert();}
+        else{
+            saveOldList();}
+    }
+
+    @Override
+    public void onPause(){
+
+        ImageButton additemButton = (ImageButton) findViewById(R.id.addlistitemButton);
+        additemButton.callOnClick();
+        activityDict = customListAdapter.isCheckedDict;
+        final EditText editTextName = (EditText) findViewById(R.id.listNameText);
+        saveList(editTextName.getText().toString());
+        super.onPause();
+
     }
 }

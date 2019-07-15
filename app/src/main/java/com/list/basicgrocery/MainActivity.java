@@ -52,18 +52,19 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-@Override
-protected void onResume(){
-    super.onResume();
-    ArrayList<String> fileList = new ArrayList<String>();
+    @Override
+    protected void onResume(){
+        super.onResume();
+        ArrayList<String> fileList = new ArrayList<String>();
 
-    fileList = new ArrayList(Arrays.asList(getApplicationContext().fileList()));
+        fileList = new ArrayList(Arrays.asList(getApplicationContext().fileList()));
 
-    myCustomMainAdapter = new CustomMainAdapter(fileList, getApplicationContext());
+        myCustomMainAdapter = new CustomMainAdapter(fileList, getApplicationContext());
 
-    mainListView.setAdapter(myCustomMainAdapter);
+        mainListView.setAdapter(myCustomMainAdapter);
 
-}
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,7 +91,6 @@ protected void onResume(){
    }
 
     private void configureListView() {
-
         mainListView = (ListView) findViewById( R.id.mainlistListView );
         Context context = getApplicationContext();
 
