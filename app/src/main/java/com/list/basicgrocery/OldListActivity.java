@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -288,6 +289,12 @@ final EditText listItemText = (EditText) findViewById(R.id.oldlistitemEditText);
                 if (newlistitemText.length() > 0) {
                     addlistItem(newlistitemText.getText().toString());
                     newlistitemText.setText("");
+                }
+                else{
+                    newlistitemText.requestFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.showSoftInput(newlistitemText, InputMethodManager.SHOW_IMPLICIT);
+
                 }
 
             }
