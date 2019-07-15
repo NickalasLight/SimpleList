@@ -1,20 +1,15 @@
 package com.list.basicgrocery;
 
-import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.Spinner;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -55,8 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (id == R.id.menuprivacypolicy) {
             Intent intent = new Intent(MainActivity.this, PrivacyPolicy.class);
-            //String message = "abc";
-            //intent.putExtra(EXTRA_MESSAGE, message);
+
             startActivity(intent);
 
         }
@@ -70,6 +64,7 @@ protected void onResume(){
     super.onResume();
     ArrayList<String> fileList = new ArrayList<String>();
 Log.i("Main onResume:", "IN onResume in main");
+
     fileList = new ArrayList(Arrays.asList(getApplicationContext().fileList()));
 
     myCustomMainAdapter = new CustomMainAdapter(fileList, getApplicationContext());
@@ -84,8 +79,8 @@ Log.i("Main onResume:", "IN onResume in main");
 
         configureNewListButton ();
         configureListView();
-       // configureMenu();
-        getSupportActionBar().setTitle("My Lists");
+        //getSupportActionBar().setTitle("My Lists");
+        getSupportActionBar().setTitle(getResources().getString(R.string.main_title));
     }
 
    private void configureNewListButton(){
@@ -95,7 +90,7 @@ Log.i("Main onResume:", "IN onResume in main");
            @Override
            public void onClick(View view) {
 
-               Intent myIntent = new Intent(MainActivity.this, OldListActivity.class);
+               Intent myIntent = new Intent(MainActivity.this, ListActivity.class);
                //myIntent.putExtra("fileName", "newList");
                startActivity(myIntent);
            }
@@ -122,7 +117,7 @@ Log.i("Main onResume:", "IN onResume in main");
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
 
-                Intent myIntent = new Intent(MainActivity.this, OldListActivity.class);
+                Intent myIntent = new Intent(MainActivity.this, ListActivity.class);
                 myIntent.putExtra("fileName",parent.getItemAtPosition(position).toString());
                 startActivity(myIntent);
             }

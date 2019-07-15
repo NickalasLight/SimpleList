@@ -114,7 +114,7 @@ public String getIsChecked(int position){
                     try {
 
                         /*Context myContext = v.getContext();
-                        Intent myIntent = new Intent(v.getContext(), OldListActivity.class);
+                        Intent myIntent = new Intent(v.getContext(), ListActivity.class);
                         myIntent.putExtra("fileName", result);
                         myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); //throws exception if this line is removed
                         myContext.startActivity(myIntent);

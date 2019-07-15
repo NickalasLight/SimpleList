@@ -3,7 +3,6 @@ package com.list.basicgrocery;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.view.ContextThemeWrapper;
 import android.util.Log;
@@ -108,7 +107,7 @@ public class CustomMainAdapter extends BaseAdapter implements ListAdapter {
                 try {
                     String myResult = result;
                     Context myContext = v.getContext();
-                    Intent myIntent = new Intent(v.getContext(), OldListActivity.class);
+                    Intent myIntent = new Intent(v.getContext(), ListActivity.class);
 
                     if(result == null) {myResult = "newList";}
                     myIntent.putExtra("fileName", myResult);

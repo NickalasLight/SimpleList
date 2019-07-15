@@ -23,7 +23,7 @@
         </activity>
         <activity
             android:theme="@style/AppTheme.NoActionBar"
-            android:name="com.list.basicgrocery.OldListActivity"
+            android:name="com.list.basicgrocery.ListActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"/>
         <activity

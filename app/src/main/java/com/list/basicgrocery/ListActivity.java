@@ -12,8 +12,6 @@ import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -30,7 +28,7 @@ import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Hashtable;
 
-public class OldListActivity extends AppCompatActivity {
+public class ListActivity extends AppCompatActivity {
 
     private String fileName;
     private ListView mainListView ;
@@ -41,7 +39,7 @@ public class OldListActivity extends AppCompatActivity {
 
     private boolean ifFileExists(String fileName)
 {
-    File directory = OldListActivity.this.getFilesDir();
+    File directory = ListActivity.this.getFilesDir();
     File file = new File(directory, fileName);
     if(file.exists() && !fileName.equals("")){return true;}
     else {return false;}
@@ -94,7 +92,7 @@ public class OldListActivity extends AppCompatActivity {
     private void ShowExistFileAlert(){
  //       Context context = getApplicationContext();
 
-        AlertDialog.Builder dlgAlert = new AlertDialog.Builder(OldListActivity.this);
+        AlertDialog.Builder dlgAlert = new AlertDialog.Builder(ListActivity.this);
         dlgAlert.setMessage("A list with this name already exists! Please change to a new list name.");
         dlgAlert.setTitle("List Already Exists!");
         dlgAlert.setPositiveButton("OK", null);
@@ -153,7 +151,7 @@ final EditText listItemText = (EditText) findViewById(R.id.oldlistitemEditText);
 
     private void readFromFiletoArrayList(){
         Context context = getApplicationContext();
-        File myDir = OldListActivity.this.getFilesDir();
+        File myDir = ListActivity.this.getFilesDir();
         try {
             String filePath = myDir.getPath()+"/"+fileName;
             String fileString = getStringFromFile(filePath);
@@ -221,7 +219,7 @@ final EditText listItemText = (EditText) findViewById(R.id.oldlistitemEditText);
 
         EditText listName = (EditText) findViewById(R.id.oldlistNameText); //grab text of this to set filename
 
-        File directory = OldListActivity.this.getFilesDir();
+        File directory = ListActivity.this.getFilesDir();
         File file = new File(directory, fileName);
         if(file.exists()){file.delete();}
         file = new File(directory, listName.getText().toString());

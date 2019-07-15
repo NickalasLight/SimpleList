@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">BasicGrocery</string>
+    <string name="main_title">My Lists</string>
 </resources>
