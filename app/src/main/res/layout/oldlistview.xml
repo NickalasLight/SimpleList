@@ -8,7 +8,7 @@
 
 
     <ImageButton
-        android:id="@+id/oldlistviewFinishButton"
+        android:id="@+id/listviewFinishButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -27,7 +27,7 @@
         android:textSize="32dp"
         android:textStyle="bold"
         android:background="@android:color/transparent"
-        android:id="@+id/oldlistNameText"
+        android:id="@+id/listNameText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -40,25 +40,25 @@
         android:ems="10"
         android:inputType="textShortMessage|textPersonName"
         android:text="OldList"
-        app:layout_constraintBottom_toTopOf="@+id/oldlistitemEditText"
+        app:layout_constraintBottom_toTopOf="@+id/listitemEditText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="oldlistNameText" />
 
     <ListView
-        android:id="@+id/oldlistListView"
+        android:id="@+id/listListView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/oldlistviewFinishButton"
+        app:layout_constraintBottom_toTopOf="@+id/listviewFinishButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/oldlistitemEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/listitemEditText" />
 
     <EditText
-        android:id="@+id/oldlistitemEditText"
+        android:id="@+id/listitemEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -70,13 +70,13 @@
         android:singleLine="true"
         android:inputType="textPersonName"
         android:imeOptions="actionDone"
-        app:layout_constraintEnd_toStartOf="@+id/oldaddlistitemButton"
+        app:layout_constraintEnd_toStartOf="@+id/addlistitemButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/oldlistNameText"
+        app:layout_constraintTop_toBottomOf="@+id/listNameText"
         tools:text="oldlistitemEditText" />
 
     <ImageButton
-        android:id="@+id/oldaddlistitemButton"
+        android:id="@+id/addlistitemButton"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_alignParentRight="true"
@@ -90,10 +90,10 @@
         android:backgroundTint="@android:color/transparent"
         android:src="@drawable/ic_add_box_black_24dp"
         android:text="Add"
-        app:layout_constraintBottom_toTopOf="@+id/oldlistListView"
+        app:layout_constraintBottom_toTopOf="@+id/listListView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/oldlistitemEditText"
-        app:layout_constraintTop_toBottomOf="@+id/oldlistNameText"
+        app:layout_constraintStart_toEndOf="@+id/listitemEditText"
+        app:layout_constraintTop_toBottomOf="@+id/listNameText"
         app:layout_constraintVertical_bias="0.268" />
 
 </android.support.constraint.ConstraintLayout>

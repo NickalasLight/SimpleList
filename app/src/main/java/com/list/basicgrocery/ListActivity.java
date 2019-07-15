@@ -35,7 +35,6 @@ public class ListActivity extends AppCompatActivity {
     private CustomListAdapter customListAdapter;
     private ArrayList<String> dataArray = new ArrayList<String>();
     private Dictionary activityDict = new Hashtable<Integer,String>();
-    //private String oldListName;
 
     private boolean ifFileExists(String fileName)
 {
@@ -49,8 +48,8 @@ public class ListActivity extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event)  {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-            // do something on back.
-            ImageButton additemButton = (ImageButton) findViewById(R.id.oldaddlistitemButton);
+
+            ImageButton additemButton = (ImageButton) findViewById(R.id.addlistitemButton);
             additemButton.callOnClick();
 
             saveOldList();
@@ -101,7 +100,7 @@ public class ListActivity extends AppCompatActivity {
         //Todo: must create break here, and then create listener for messagebox. It works different from .Net.
     }
     private void configureAddItemText () {
-final EditText listItemText = (EditText) findViewById(R.id.oldlistitemEditText);
+final EditText listItemText = (EditText) findViewById(R.id.listitemEditText);
         listItemText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -122,7 +121,7 @@ final EditText listItemText = (EditText) findViewById(R.id.oldlistitemEditText);
 }
     private void configureListNameText(){
 
-        EditText myEditText = (EditText) findViewById(R.id.oldlistNameText);
+        EditText myEditText = (EditText) findViewById(R.id.listNameText);
 
         if(fileName == null){fileName = "newList";
         int i = 1;
@@ -217,7 +216,7 @@ final EditText listItemText = (EditText) findViewById(R.id.oldlistitemEditText);
 
     private void saveOldList() {
 
-        EditText listName = (EditText) findViewById(R.id.oldlistNameText); //grab text of this to set filename
+        EditText listName = (EditText) findViewById(R.id.listNameText); //grab text of this to set filename
 
         File directory = ListActivity.this.getFilesDir();
         File file = new File(directory, fileName);
@@ -251,7 +250,7 @@ final EditText listItemText = (EditText) findViewById(R.id.oldlistitemEditText);
     }
     private void configureListView() {
 
-        mainListView = (ListView) findViewById( R.id.oldlistListView);
+        mainListView = (ListView) findViewById( R.id.listListView);
 
         customListAdapter = new CustomListAdapter(dataArray,getApplicationContext());
         customListAdapter.isCheckedDict = this.activityDict;
@@ -272,8 +271,8 @@ final EditText listItemText = (EditText) findViewById(R.id.oldlistitemEditText);
 
     }
     private void configureAddItemButton(){
-        ImageButton additemButton = (ImageButton) findViewById(R.id.oldaddlistitemButton);
-        final EditText newlistitemText = (EditText) findViewById(R.id.oldlistitemEditText);
+        ImageButton additemButton = (ImageButton) findViewById(R.id.addlistitemButton);
+        final EditText newlistitemText = (EditText) findViewById(R.id.listitemEditText);
 
         additemButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -296,10 +295,10 @@ final EditText listItemText = (EditText) findViewById(R.id.oldlistitemEditText);
     }
 
     private void configureFinishButton(){
-        ImageButton finishButton = (ImageButton) findViewById(R.id.oldlistviewFinishButton);
-        ImageButton additemButton = (ImageButton) findViewById(R.id.oldaddlistitemButton);
+        ImageButton finishButton = (ImageButton) findViewById(R.id.listviewFinishButton);
+        ImageButton additemButton = (ImageButton) findViewById(R.id.addlistitemButton);
         additemButton.callOnClick();
-        final EditText editTextName = (EditText) findViewById(R.id.oldlistNameText);
+        final EditText editTextName = (EditText) findViewById(R.id.listNameText);
         finishButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {

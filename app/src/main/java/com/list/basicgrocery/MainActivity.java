@@ -19,19 +19,15 @@ public class MainActivity extends AppCompatActivity {
     private ListView mainListView ;
     private CustomMainAdapter myCustomMainAdapter;
 
-    // create an action bar button
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         try {
             getMenuInflater().inflate(R.menu.mymenu, menu);
 
-
             super.onCreateOptionsMenu(menu);
-
 
         }
         catch(Exception e){
-            Log.d("bleh", "onCreateOptionsMenu: " + e);
 
         }finally {
             return super.onCreateOptionsMenu(menu);
@@ -43,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
         return super.onPrepareOptionsMenu(menu);
     }
 
-    // handle button activities
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -52,9 +47,7 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, PrivacyPolicy.class);
 
             startActivity(intent);
-
         }
-            // do something here
 
         return super.onOptionsItemSelected(item);
     }
@@ -63,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
 protected void onResume(){
     super.onResume();
     ArrayList<String> fileList = new ArrayList<String>();
-Log.i("Main onResume:", "IN onResume in main");
 
     fileList = new ArrayList(Arrays.asList(getApplicationContext().fileList()));
 
@@ -91,18 +83,15 @@ Log.i("Main onResume:", "IN onResume in main");
            public void onClick(View view) {
 
                Intent myIntent = new Intent(MainActivity.this, ListActivity.class);
-               //myIntent.putExtra("fileName", "newList");
                startActivity(myIntent);
            }
 
        });
    }
 
-
     private void configureListView() {
-        // Find the ListView resource.
-        mainListView = (ListView) findViewById( R.id.mainlistListView );
 
+        mainListView = (ListView) findViewById( R.id.mainlistListView );
         Context context = getApplicationContext();
 
         ArrayList<String> fileList = new ArrayList<String>();
@@ -111,19 +100,6 @@ Log.i("Main onResume:", "IN onResume in main");
         myCustomMainAdapter = new CustomMainAdapter( fileList , this);
 
         mainListView.setAdapter(myCustomMainAdapter);
-
-        /*mainListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position,
-                                    long id) {
-
-                Intent myIntent = new Intent(MainActivity.this, ListActivity.class);
-                myIntent.putExtra("fileName",parent.getItemAtPosition(position).toString());
-                startActivity(myIntent);
-            }
-        });
-        */
-
 
     }
 
