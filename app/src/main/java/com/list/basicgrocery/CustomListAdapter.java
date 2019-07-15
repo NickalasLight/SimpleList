@@ -35,7 +35,7 @@ public class CustomListAdapter extends BaseAdapter implements ListAdapter {
         this.context = context;
     }
 
-    public void Add(String item){this.list.add(item);}
+    public void Add(String item){this.list.add(item);this.isCheckedDict.put(this.list.size()-1,"▼");}
 
 public void setCheckedPosition(int position, String value) {
         isCheckedDict.put(position,value);
@@ -81,9 +81,17 @@ public String getIsChecked(int position){
 
             if(isCheckedDict.get(position) != null) {
             if(isCheckedDict.get(position).toString().equals("▲")){
-                listItemText.setPaintFlags(listItemText.getPaintFlags() ^ Paint.STRIKE_THRU_TEXT_FLAG);
+                listItemText.setPaintFlags(listItemText.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                 listItemText.setTextColor(Color.GRAY);
-            }}
+
+            }
+            else{
+                listItemText.setPaintFlags(listItemText.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
+                listItemText.setTextColor(Color.BLACK);
+
+
+            }
+            }
 
 
             //final KeyListener orgKeyListener = listItemText.getKeyListener();
@@ -201,6 +209,13 @@ public String getIsChecked(int position){
                     //String fileName = list.get(position).toString();
                     //FileManager.deleteFile(v.getContext(), fileName);
                     list.remove(position); //or some other task
+                    //deleting checked
+                    for(int i = position; i < list.size(); i++) {
+                        isCheckedDict.remove(i);
+                        isCheckedDict.put(i, isCheckedDict.get(i + 1));
+                        isCheckedDict.remove(i+1);
+                    }
+
                     notifyDataSetChanged();
                 }
             });
