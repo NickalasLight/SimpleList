@@ -265,11 +265,6 @@ final EditText listItemText = (EditText) findViewById(R.id.oldlistitemEditText);
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
-                //Intent intent = new Intent(NewListActivity.this, SendMessage.class);
-                //String message = "abc";
-                //intent.putExtra(EXTRA_MESSAGE, message);
-                //startActivity(intent);
-                //customListAdapter.remove(parent.getItemAtPosition(position).toString());
                 customListAdapter.notifyDataSetChanged();
             }
         });
