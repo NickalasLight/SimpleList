@@ -31,7 +31,7 @@ import java.util.Hashtable;
 public class ListActivity extends AppCompatActivity {
 
     private String mfileName;
-    private ListView mainListView ;
+    private ListView listView;
     private CustomListAdapter customListAdapter;
     private ArrayList<String> dataArray = new ArrayList<String>();
     private Dictionary activityDict = new Hashtable<Integer,String>();
@@ -223,34 +223,33 @@ final EditText listItemText = (EditText) findViewById(R.id.listitemEditText);
 
 
     }
+
     private void addlistItem(String item) {
         customListAdapter.Add(item); //TODO: implement adding item to list inside the customlistadapter class
         customListAdapter.notifyDataSetChanged();
-        mainListView.smoothScrollToPosition(mainListView.getMaxScrollAmount());
-        //mainListView.setAdapter(customListAdapter);
+        listView.smoothScrollToPosition(listView.getMaxScrollAmount());
+        //listView.setAdapter(customListAdapter);
     }
+
     private void configureListView() {
 
-        mainListView = (ListView) findViewById( R.id.listListView);
+        listView = (ListView) findViewById( R.id.listListView);
 
         customListAdapter = new CustomListAdapter(dataArray,getApplicationContext());
         customListAdapter.isCheckedDict = this.activityDict;
 
-        mainListView.setAdapter(customListAdapter);
+        listView.setAdapter(customListAdapter);
 
 
-        mainListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
                 customListAdapter.notifyDataSetChanged();
             }
         });
-
-
-
-
     }
+
     private void configureAddItemButton(){
         ImageButton additemButton = (ImageButton) findViewById(R.id.addlistitemButton);
         final EditText newlistitemText = (EditText) findViewById(R.id.listitemEditText);
@@ -277,18 +276,13 @@ final EditText listItemText = (EditText) findViewById(R.id.listitemEditText);
 
     private void configureFinishButton(){
         ImageButton finishButton = (ImageButton) findViewById(R.id.listviewFinishButton);
-        ImageButton additemButton = (ImageButton) findViewById(R.id.addlistitemButton);
-        additemButton.callOnClick();
-        final EditText editTextName = (EditText) findViewById(R.id.listNameText);
         finishButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                //TODO: code to save list somewhere on phone.
                 finish();}
-
-
         });
     }
+
     public void saveList(String fileName) {
 
         boolean fileExists = ifFileExists(fileName);
