@@ -1,5 +1,6 @@
 package com.list.basicgrocery;
 
+import android.app.Activity;
 import android.content.Context;
 
 import java.io.File;
@@ -20,6 +21,15 @@ public class FileManager {
         File newFile = new File(context.getFilesDir(), newFileName);
         oldFile.renameTo(newFile);
         //file.delete();
+
+    }
+
+    static boolean ifFileExists(String fileName, Activity activity)
+    {
+        File directory = activity.getFilesDir();
+        File file = new File(directory, fileName);
+        if(file.exists() && !fileName.equals("")){return true;}
+        else {return false;}
 
     }
 }

@@ -63,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
 
         mainListView.setAdapter(myCustomMainAdapter);
 
+      //  mainListView.notif
+
     }
 
     @Override

@@ -36,14 +36,6 @@ public class ListActivity extends AppCompatActivity {
     private ArrayList<String> dataArray = new ArrayList<String>();
     private Dictionary activityDict = new Hashtable<Integer,String>();
 
-    private boolean ifFileExists(String fileName)
-{
-    File directory = ListActivity.this.getFilesDir();
-    File file = new File(directory, fileName);
-    if(file.exists() && !fileName.equals("")){return true;}
-    else {return false;}
-
-}
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,7 +73,8 @@ public class ListActivity extends AppCompatActivity {
     }
     private void configureAddItemText () {
 final EditText listItemText = (EditText) findViewById(R.id.listitemEditText);
-        listItemText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+
+listItemText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
 
@@ -106,7 +99,7 @@ final EditText listItemText = (EditText) findViewById(R.id.listitemEditText);
         if(mfileName == null){
             mfileName = "newList";
         int i = 1;
-        while(ifFileExists(mfileName)) {
+        while(FileManager.ifFileExists(mfileName,ListActivity.this)) {
             mfileName = "newList " + i;
             i = i + 1;
 
@@ -225,11 +218,13 @@ final EditText listItemText = (EditText) findViewById(R.id.listitemEditText);
     }
 
     private void addlistItem(String item) {
-        customListAdapter.Add(item); //TODO: implement adding item to list inside the customlistadapter class
-        customListAdapter.notifyDataSetChanged();
-        listView.smoothScrollToPosition(listView.getMaxScrollAmount());
-        //listView.setAdapter(customListAdapter);
-    }
+        if(item != null && item.trim()!= "") {
+            customListAdapter.Add(item); //TODO: implement adding item to list inside the customlistadapter class
+            customListAdapter.notifyDataSetChanged();
+            listView.smoothScrollToPosition(listView.getMaxScrollAmount());
+            //listView.setAdapter(customListAdapter);
+        }
+        }
 
     private void configureListView() {
 
@@ -250,6 +245,41 @@ final EditText listItemText = (EditText) findViewById(R.id.listitemEditText);
         });
     }
 
+
+
+    private void configureFinishButton(){
+        ImageButton finishButton = (ImageButton) findViewById(R.id.listviewFinishButton);
+        finishButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                finish();}
+        });
+    }
+
+    public void saveList(String fileName) {
+
+        boolean fileExists = FileManager.ifFileExists(fileName,ListActivity.this);
+        if(fileExists && !fileName.equals(mfileName))
+        {ShowExistFileAlert();}
+        else{
+            saveOldList();}
+    }
+
+    @Override
+    public void onPause() {
+
+        activityDict = customListAdapter.isCheckedDict;
+
+        ImageButton additemButton = (ImageButton) findViewById(R.id.addlistitemButton);
+
+        EditText editTextName = (EditText) findViewById(R.id.listNameText);
+
+        additemButton.callOnClick();
+
+        saveList(editTextName.getText().toString());
+
+        super.onPause();
+    }
     private void configureAddItemButton(){
         ImageButton additemButton = (ImageButton) findViewById(R.id.addlistitemButton);
         final EditText newlistitemText = (EditText) findViewById(R.id.listitemEditText);
@@ -272,35 +302,5 @@ final EditText listItemText = (EditText) findViewById(R.id.listitemEditText);
             }
 
         });
-    }
-
-    private void configureFinishButton(){
-        ImageButton finishButton = (ImageButton) findViewById(R.id.listviewFinishButton);
-        finishButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                finish();}
-        });
-    }
-
-    public void saveList(String fileName) {
-
-        boolean fileExists = ifFileExists(fileName);
-        if(fileExists && !fileName.equals(mfileName))
-        {ShowExistFileAlert();}
-        else{
-            saveOldList();}
-    }
-
-    @Override
-    public void onPause(){
-
-        ImageButton additemButton = (ImageButton) findViewById(R.id.addlistitemButton);
-        additemButton.callOnClick();
-        activityDict = customListAdapter.isCheckedDict;
-        final EditText editTextName = (EditText) findViewById(R.id.listNameText);
-        saveList(editTextName.getText().toString());
-        super.onPause();
-
     }
 }
