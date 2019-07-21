@@ -93,17 +93,14 @@ public class CustomMainAdapter extends BaseAdapter implements ListAdapter {
         listItemText.setFocusableInTouchMode(false);
         //Handle buttons and add onClickListeners
         ImageButton deleteBtn = (ImageButton) view.findViewById(R.id.listitemDeleteButton);
-        ImageButton addBtn = (ImageButton) view.findViewById(R.id.listitemAddButton);
+        ImageButton editBtn = (ImageButton) view.findViewById(R.id.listitemEditButton);
 
         final String result = listItemText.getText().toString();
 
         listItemText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //do something
-                //list.remove(position); //or some other task
-                //notifyDataSetChanged();
-                //listItemText.setText("TEST");
+
                 try {
                     String myResult = result;
                     Context myContext = v.getContext();
@@ -123,7 +120,6 @@ public class CustomMainAdapter extends BaseAdapter implements ListAdapter {
         listItemText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                // If it loses focus...
 
                 if (!hasFocus) {
                     // Hide soft keyboard.
@@ -134,7 +130,6 @@ public class CustomMainAdapter extends BaseAdapter implements ListAdapter {
                     listItemText.setSelectAllOnFocus(false);
                     listItemText.setCursorVisible(false);
                     getViewFlag = true;
-
 
                 }
             }
@@ -152,7 +147,6 @@ public class CustomMainAdapter extends BaseAdapter implements ListAdapter {
                     list.set(position,newFileName);
                     listItemText.clearFocus();
                 }
-
 
                 return false;
             }
@@ -174,8 +168,6 @@ public class CustomMainAdapter extends BaseAdapter implements ListAdapter {
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //do something
-               // ShowDeleteListAlert(v,position); --> figure out notifications/broadcasts first
 
                 String fileName = list.get(position).toString();
                 FileManager.deleteFile(v.getContext(), fileName);
@@ -185,44 +177,27 @@ public class CustomMainAdapter extends BaseAdapter implements ListAdapter {
         });
 
 
-        addBtn.setOnClickListener(new View.OnClickListener() {
+        editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //do something
+
                 try {
 
                     Log.i("addBtn.onClick", "editBtn.setonClick clicked");
 
                     final EditText myEditText = listItemText;
 
-
-                    //TextView listItemText = (TextView) v.findViewById(R.id.listitemTextView);
-
                     myEditText.setFocusableInTouchMode(true);
                     myEditText.setImeOptions(EditorInfo.IME_ACTION_DONE);
-                    //myEditText.setKeyListener(orgKeyListener);
                     myEditText.setSelectAllOnFocus(true);
                     myEditText.requestFocus();
 
                     myEditText.selectAll();
                     myEditText.setCursorVisible(true);
-                    //myEditText.setSelection(myEditText.getText().length());
-                    // myEditText.selectAll();
-                    //myEditText.setSelection(2);
-                    // myEditText.setVisibility(View.INVISIBLE);
                     InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
                     inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
 
-
                     getViewFlag = false;
-                    // myEditText.requestFocus();
-                    //myEditText.selectAll();
-                    //android.os.SystemClock.sleep(10000);
-
-                    //myEditText.selectAll();
-                    //myEditText.setCursorVisible(true);
-                    // selectTest(myEditText);
-
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -237,6 +212,5 @@ public class CustomMainAdapter extends BaseAdapter implements ListAdapter {
 
     private void selectTest(EditText myEditText) {
         myEditText.selectAll();
-        //myEditText.setCursorVisible(true);
     }
 }

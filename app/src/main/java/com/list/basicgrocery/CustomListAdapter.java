@@ -1,7 +1,6 @@
 package com.list.basicgrocery;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.Log;
@@ -99,7 +98,7 @@ public String getIsChecked(int position){
             listItemText.setFocusableInTouchMode(false);
             //Handle buttons and add onClickListeners
             ImageButton deleteBtn = (ImageButton) view.findViewById(R.id.listitemDeleteButton);
-            ImageButton addBtn = (ImageButton) view.findViewById(R.id.listitemAddButton);
+            ImageButton addBtn = (ImageButton) view.findViewById(R.id.listitemEditButton);
 
             final String result = listItemText.getText().toString();
 

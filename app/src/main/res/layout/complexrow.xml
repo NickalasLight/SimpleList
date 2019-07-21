@@ -20,14 +20,14 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:layout_toStartOf="@+id/listitemAddButton"
-        android:layout_toLeftOf="@+id/listitemAddButton"
+        android:layout_toStartOf="@+id/listitemEditButton"
+        android:layout_toLeftOf="@+id/listitemEditButton"
         android:background="@android:color/transparent"
         android:paddingLeft="8dp"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/listitemAddButton"
+        app:layout_constraintEnd_toStartOf="@+id/listitemEditButton"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -47,7 +47,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/listitemAddButton"
+        android:id="@+id/listitemEditButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
